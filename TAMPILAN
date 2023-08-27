@@ -4,7 +4,7 @@ import cv2
 from PIL import Image, ImageTk
 
 class CameraApp:
-    cap = cv2.VideoCapture(1)
+    cap = cv2.VideoCapture(0)
     def __init__(self, root):
         self.root = root
         self.root.title("Camera App")
@@ -50,7 +50,7 @@ class CameraApp:
         self.disable_buttons()
         self.is_camera_running = False
 
-
+    check, frame = cap.read()
     def start_camera(self):
         if not self.is_camera_running:
             self.is_camera_running = True
@@ -59,7 +59,6 @@ class CameraApp:
         
             
     def show_camera(self):
-        ret, frame = self.capture.read()
         if ret:
             frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             image = Image.fromarray(frame)
