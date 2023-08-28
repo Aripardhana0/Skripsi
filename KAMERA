@@ -9,25 +9,40 @@ class CameraApp:
         self.root.title("Camera App")
         
         self.capture = cv2.VideoCapture(0)
+        # Declare the width and height in variables
+        # width, height = 100, 100
+        
+        # Set the width and height
+        self.capture.set(cv2.CAP_PROP_FRAME_WIDTH, 300)
+        self.capture.set(cv2.CAP_PROP_FRAME_HEIGHT, 300)
         
         self.frame = tk.Frame(self.root)
         self.frame.pack(padx=10, pady=10)
         
-        self.start_button = ttk.Button(self.frame, text="Start", command=self.show_camera)
-        self.start_button.pack(side="top")
-    
+        self.start_button = ttk.Button(self.frame, text="Start", command=self.start_camera)
+        self.start_button.pack(side="right")
         
         self.slider = ttk.Scale(self.frame, from_=1, to=10, orient="horizontal")
         self.slider.set(5)  # Default value
-        self.slider.pack(side="top", pady=10)
+        self.slider.pack(side="right", pady=10)
+
+        self.hue_slider = ttk.Scale(self.root, from_=0, to=255, orient="horizontal", length=200)
+        self.hue_slider.pack(padx=10, pady=5)
+        
+        self.saturation_slider = ttk.Scale(self.root, from_=0, to=255, orient="horizontal", length=200)
+        self.saturation_slider.pack(padx=10, pady=5)
+        
+        self.value_slider = ttk.Scale(self.root, from_=0, to=255, orient="horizontal", length=200)
+        self.value_slider.pack(padx=10, pady=5)
         
         self.submit_button = ttk.Button(self.frame, text="Submit", command=self.submit_value)
-        self.submit_button.pack(side="top")
+        self.submit_button.pack(side="right")
         
         self.video_label = ttk.Label(self.frame)
         self.video_label.pack()
         
-        self.is_camera_running = False
+        self.is_camera_running = True
+       
         
     def start_camera(self):
         if not self.is_camera_running:
